@@ -7,6 +7,3 @@ steps:
       - 'apply'
       - '-f'
       - '/deployment/deploy-dev.yaml'
-options:
-  build:
-    service_account: 516957045707-compute@developer.gserviceaccount.com
