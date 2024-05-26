@@ -1,10 +1,4 @@
 steps:
-  # Pull latest changes from the specified branch
-  - name: 'gcr.io/cloud-builders/git'
-    args: ['pull', 'origin', '$BRANCH_NAME']
-  # Install packages
-  - name: 'gcr.io/cloud-builders/npm'
-    args: [ 'install' ]
   # Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/ceremonial-team-424503-u1/nestjs-10-app:$SHORT_SHA', '.']
