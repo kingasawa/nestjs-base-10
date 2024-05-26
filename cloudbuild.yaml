@@ -6,7 +6,7 @@ steps:
     args:
       - 'apply'
       - '-f'
-      - '/deployment/deploy-dev.yaml'
+      - './deployment/deploy-dev.yaml'
     env:
       - 'CLOUDSDK_COMPUTE_REGION=asia-northeast1'
       - 'CLOUDSDK_COMPUTE_ZONE=asia-northeast1-a'
