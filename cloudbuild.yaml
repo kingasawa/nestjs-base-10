@@ -7,3 +7,7 @@ steps:
       - 'apply'
       - '-f'
       - '/deployment/deploy-dev.yaml'
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=asia-northeast1'
+      - 'CLOUDSDK_COMPUTE_ZONE=asia-northeast1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-1'
