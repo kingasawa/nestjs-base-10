@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nestjs-10-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nestjs-10-app
+  template:
+    metadata:
+      labels:
+        app: nestjs-10-app
+    spec:
+      containers:
+        - name: nestjs-10-app
+          image: nestjs-10-app:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: production
