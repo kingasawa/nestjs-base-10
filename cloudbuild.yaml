@@ -1,13 +1,12 @@
 steps:
-  # Build Docker image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/ceremonial-team-424503-u1/nestjs-10-app:$SHORT_SHA', '.']
-  # Push Docker image to Artifact Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/ceremonial-team-424503-u1/nestjs-10-app:$SHORT_SHA']
-  # Deploy to Kubernetes Engine
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', './deployment/deploy-dev.yaml']
+    args:
+      - 'apply'
+      - '-f'
+      - './deployment/deploy-dev.yaml'
     env:
       - 'CLOUDSDK_COMPUTE_REGION=asia-northeast1'
       - 'CLOUDSDK_COMPUTE_ZONE=asia-northeast1-a'
