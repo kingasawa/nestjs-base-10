@@ -14,9 +14,24 @@ spec:
     spec:
       containers:
         - name: nestjs-10-app
-          image: nestjs-10-app:latest
+          image: gcr.io/ceremonial-team-424503-u1/nestjs-10-app:latest
           ports:
             - containerPort: 3000
           env:
             - name: NODE_ENV
               value: production
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nestjs-10-app
+  labels:
+    tier: backend
+spec:
+  selector:
+    app: nestjs-10-app
+    tier: backend
+  ports:
+    - name: nestjs-10-app
+      protocol: TCP
+      port: 3000

@@ -1,13 +1,18 @@
 steps:
+  # build the container image
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "gcr.io/ceremonial-team-424503-u1/nestjs-10-app:$COMMIT_SHA","-f","Dockerfile", "."]
+  # push container image
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/ceremonial-team-424503-u1/nestjs-10-app:$COMMIT_SHA"]
+
   - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
-
-  - name: 'gcr.io/cloud-builders/kubectl'
+  - name: "gcr.io/cloud-builders/gke-deploy"
     args:
-      - 'apply'
-      - '-f'
-      - './deployment/deploy-dev.yaml'
-    env:
-      - 'CLOUDSDK_COMPUTE_REGION=asia-northeast1'
-      - 'CLOUDSDK_COMPUTE_ZONE=asia-northeast1-a'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-1'
+      - run
+      - --filename=./deployment/deploy-dev.yaml
+      - --image=gcr.io/ceremonial-team-424503-u1/nestjs-10-app:$COMMIT_SHA
+      - --location=asia-northeast1-a
+      - --cluster=autopilot-cluster-1
+timeout: 3600s
