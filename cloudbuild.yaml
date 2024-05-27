@@ -13,6 +13,6 @@ steps:
       - run
       - --filename=./deployment/deploy-dev.yaml
       - --image=gcr.io/ceremonial-team-424503-u1/nestjs-10-app:$COMMIT_SHA
-      - --location=asia-northeast1-a
+      - --location=asia-northeast1
       - --cluster=autopilot-cluster-1
 timeout: 3600s
