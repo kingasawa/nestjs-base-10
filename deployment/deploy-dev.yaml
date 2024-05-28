@@ -32,7 +32,7 @@ spec:
     app: nestjs-10-app
     tier: backend
   ports:
-    - name: nestjs-10-app
-      protocol: TCP
+    - protocol: TCP
       port: 3000
+      targetPort: 3000
   type: LoadBalancer
