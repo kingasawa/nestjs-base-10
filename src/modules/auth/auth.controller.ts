@@ -35,4 +35,10 @@ export class AuthController {
   getProfile(@Request() req) {
     return req.user;
   }
+
+  @Get('test')
+  test(@Request() req, @Response() res) {
+    console.log('test app');
+    return res.status(200).send("test app");
+  }
 }

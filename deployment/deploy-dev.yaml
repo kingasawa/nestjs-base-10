@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: nestjs-10-app
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: nestjs-10-app
@@ -17,9 +17,6 @@ spec:
           image: gcr.io/ceremonial-team-424503-u1/nestjs-10-app:latest
           ports:
             - containerPort: 3000
-          env:
-            - name: NODE_ENV
-              value: production
 ---
 apiVersion: v1
 kind: Service
