@@ -25,7 +25,7 @@ async function bootstrap() {
     console.log('id', id);
     done({}, id);
   });
-
+  console.log(`NestJS đang chạy trên port 3000`);
   await app.listen(3000);
 }
 bootstrap();
