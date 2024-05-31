@@ -21,7 +21,7 @@
       "@modules/*": ["src/modules/*"],
       "@core/*": ["src/core/*"],
       "@config/*": ["src/config/*"],
-      // Thêm các đường dẫn khác nếu cần
+      "@shared/*": ["src/shared/*"],
     },
     "exclude": [
       "node_modules",
