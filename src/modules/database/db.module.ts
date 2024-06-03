@@ -9,7 +9,7 @@ const connectionConfig: MysqlConnectionOptions = {
   username: process.env.MYSQL_USER || 'root',
   password: process.env.MYSQL_PASSWORD || 'password',
   database: process.env.MYSQL_DB || 'nest-base',
-  // extra: process.env.CLOUD_SQL_INSTANT_NAME ? { socketPath: process.env.CLOUD_SQL_INSTANT_NAME } : null,
+  extra: process.env.CLOUD_SQL_INSTANT_NAME ? { socketPath: process.env.CLOUD_SQL_INSTANT_NAME } : null,
   synchronize: true,
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   subscribers: [],
