@@ -5,9 +5,6 @@ steps:
   # push container image
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/ceremonial-team-424503-u1/nestjs-10-app:$COMMIT_SHA"]
-
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['install']
   - name: "gcr.io/cloud-builders/gke-deploy"
     args:
       - run
