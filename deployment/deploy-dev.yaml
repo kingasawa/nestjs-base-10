@@ -24,8 +24,9 @@ spec:
           image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
           command:
             - "/cloud_sql_proxy"
-            - "-instances=prd-wanqol-pj:asia-northeast1:prd-wanqol-pj=tcp:3306"
-            - "-credential_file=/secrets/service_account.json"
+            - "-dir=/cloudsql"
+            - "-instances=ceremonial-team-424503:asia-northeast1:nestjs-10-sql=tcp:3306"
+            - "-credential_file=/secrets/credentials.json"
           securityContext:
             runAsNonRoot: true
           volumeMounts:
