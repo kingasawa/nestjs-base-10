@@ -20,15 +20,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: nestjs-config
-          volumeMounts:
-            - mountPath: /cloudsql
-              name: cloudsql-sockets
-      volumes:
-        - name: cloudsql-instance-credentials
-          secret:
-            secretName: cloudsql-instance-credentials
-        - name: cloudsql-sockets
-          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
