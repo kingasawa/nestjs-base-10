@@ -20,25 +20,20 @@ spec:
           envFrom:
             - configMapRef:
                 name: nestjs-config
-        - name: cloudsql-proxy
+        - name: cloud-sql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
           volumeMounts:
-            - name: cloudsql-instance-credentials
-              mountPath: /secrets
+            - name: instance-credentials-volume
+              mountPath: /secrets/
               readOnly: true
-            - name: cloudsql-sockets
-              mountPath: /cloudsql
           command:
             - "/cloud_sql_proxy"
-            - "-dir=/cloudsql"
             - "-instances=ceremonial-team-424503-u1:asia-northeast1:nestjs-10-sql=tcp:3306"
             - "-credential_file=/secrets/credentials.json"
       volumes:
-        - name: cloudsql-instance-credentials
+        - name: instance-credentials-volume
           secret:
             secretName: cloudsql-instance-credentials
-        - name: cloudsql-sockets
-          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
