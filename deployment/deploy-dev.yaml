@@ -13,6 +13,16 @@ spec:
         app: nestjs-10-app
     spec:
       containers:
+        - name: cloud-sql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
+          volumeMounts:
+            - mountPath: /secrets
+              name: cloudsql-instance-credentials
+              readOnly: true
+          command:
+            - "/cloud_sql_proxy"
+            - "-instances=ceremonial-team-424503:asia-northeast1:nestjs-10-sql=tcp:3306"
+            - "-credential_file=/secrets/credentials.json"
         - name: nestjs-10-app
           image: gcr.io/ceremonial-team-424503-u1/nestjs-10-app:latest
           ports:
@@ -20,6 +30,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: nestjs-config
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials
 ---
 apiVersion: v1
 kind: Service
