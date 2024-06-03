@@ -19,12 +19,6 @@ spec:
             - mountPath: /secrets
               name: cloudsql-instance-credentials
               readOnly: true
-          command:
-            - "/cloud_sql_proxy"
-            - "-instances=ceremonial-team-424503:asia-northeast1:nestjs-10-sql=tcp:3306"
-            - "-credential_file=/secrets/credentials.json"
-          securityContext:
-            runAsNonRoot: true
         - name: nestjs-10-app
           image: gcr.io/ceremonial-team-424503-u1/nestjs-10-app:latest
           ports:
