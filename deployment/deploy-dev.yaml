@@ -25,7 +25,7 @@ spec:
           command:
             - "/cloud_sql_proxy"
             - "-dir=/cloudsql"
-            - "-instances=ceremonial-team-424503:asia-northeast1:nestjs-10-sql=tcp:3306"
+            - "-instances=ceremonial-team-424503-u1:asia-northeast1:nestjs-10-sql=tcp:3306"
             - "-credential_file=/secrets/credentials.json"
           securityContext:
             runAsNonRoot: true
