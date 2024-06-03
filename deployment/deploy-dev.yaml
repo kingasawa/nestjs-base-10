@@ -17,6 +17,9 @@ spec:
           image: gcr.io/ceremonial-team-424503-u1/nestjs-10-app:latest
           ports:
             - containerPort: 3000
+          envFrom:
+            - configMapRef:
+              name: nestjs-config
 ---
 apiVersion: v1
 kind: Service
