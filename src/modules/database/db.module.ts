@@ -4,7 +4,7 @@ import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOpti
 
 const connectionConfig: MysqlConnectionOptions = {
   type: 'mysql',
-  host: process.env.MYSQL_HOST || '127.0.0.1',
+  host: process.env.MYSQL_HOST || '34.84.9.234',
   port: Number(process.env.MYSQL_PORT) || 3306,
   username: process.env.MYSQL_USER || 'nestjs-10-user',
   password: process.env.MYSQL_PASSWORD || 'Qr>JgAFjj0?K5RFG',
