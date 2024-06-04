@@ -4,12 +4,12 @@ import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOpti
 
 const connectionConfig: MysqlConnectionOptions = {
   type: 'mysql',
-  host: '10.7.144.3',
-  port: 3306,
-  username: 'nestjs-10-user',
-  password: 'Qr>JgAFjj0?K5RFG',
-  database: 'nestjs-10',
-  extra: 'ceremonial-team-424503-u1:asia-northeast1:nestjs-10-sql',
+  host: process.env.MYSQL_HOST || '127.0.0.1',
+  port: Number(process.env.MYSQL_PORT) || 3306,
+  username: process.env.MYSQL_USER || 'nestjs-10-user',
+  password: process.env.MYSQL_PASSWORD || 'Qr>JgAFjj0?K5RFG',
+  database: process.env.MYSQL_DB || 'nestjs-10',
+  extra: process.env.CLOUD_SQL_INSTANT_NAME || 'ceremonial-team-424503-u1:asia-northeast1:nestjs-10-sql',
   synchronize: true,
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   subscribers: [],
