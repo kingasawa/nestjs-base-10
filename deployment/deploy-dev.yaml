@@ -54,6 +54,6 @@ spec:
     app: nestjs-10-app
   ports:
     - protocol: TCP
-      port: 80
+      port: 3000
       targetPort: 3000
   type: LoadBalancer
