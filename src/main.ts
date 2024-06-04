@@ -23,7 +23,7 @@ async function bootstrap() {
 
   passport.deserializeUser((id, done) => {
     console.log('id', id);
-    done({}, id);
+    done(null, id);
   });
   console.log(`NestJS v2 đang chạy trên port 3000`);
   await app.listen(3000);
