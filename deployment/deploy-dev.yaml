@@ -17,6 +17,9 @@ spec:
           image: gcr.io/ceremonial-team-424503-u1/nestjs-10-app:latest
           ports:
             - containerPort: 3000
+              name: nestjs-10
+            - containerPort: 80
+              name: nestjs-httpd
           envFrom:
             - secretRef:
                 name: db-config-secret
@@ -53,7 +56,10 @@ spec:
   selector:
     app: nestjs-10-app
   ports:
-    - protocol: TCP
-      port: 3000
-      targetPort: 3000
+    - name: nestjs-10
+      protocol: TCP
+      port: 4000
+    - name: nestjs-httpd
+      protocol: TCP
+      port: 80
   type: LoadBalancer
