@@ -67,6 +67,7 @@ metadata:
   name: nestjs-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    networking.gke.io/managed-certificates: simplecode-online-cert
 spec:
   rules:
     - host: simplecode.online
