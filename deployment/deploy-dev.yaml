@@ -1,3 +1,4 @@
+#Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,9 +18,6 @@ spec:
           image: gcr.io/ceremonial-team-424503-u1/nestjs-10-app:latest
           ports:
             - containerPort: 3000
-              name: nestjs-10
-            - containerPort: 80
-              name: nestjs-httpd
           envFrom:
             - secretRef:
                 name: db-config-secret
@@ -48,6 +46,7 @@ spec:
         - name: cloudsql-sockets
           emptyDir: {}
 ---
+#Service
 apiVersion: v1
 kind: Service
 metadata:
@@ -56,10 +55,27 @@ spec:
   selector:
     app: nestjs-10-app
   ports:
-    - name: nestjs-10
-      protocol: TCP
-      port: 4000
-    - name: nestjs-httpd
-      protocol: TCP
+    - protocol: TCP
       port: 80
-  type: LoadBalancer
+      targetPort: 3000
+  type: NodePort
+---
+#Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nestjs-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: simplecode.online
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nestjs-10-service
+                port:
+                  number: 80
