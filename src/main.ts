@@ -2,10 +2,17 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as session from 'express-session';
 import * as passport from 'passport';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  const corsOptions: CorsOptions = {
+    origin: '*', // Hoặc liệt kê các domain cụ thể
+    methods: 'GET,POST,PUT,DELETE',
+  };
+  app.enableCors(corsOptions);
+  app.enableCors()
   app.use(
     session({
       secret: 'my-secret',
@@ -25,7 +32,7 @@ async function bootstrap() {
     console.log('id', id);
     done(null, id);
   });
-  console.log(`NestJS v2 đang chạy trên port 3000`);
-  await app.listen(3000);
+  console.log(`NestJS v2 đang chạy trên port 3001`);
+  await app.listen(3001);
 }
 bootstrap();

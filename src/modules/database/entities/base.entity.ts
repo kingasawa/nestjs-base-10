@@ -1,20 +1,25 @@
 import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import * as moment from 'moment';
 
-export default class BaseEntity {
+const currentDateTime = moment().format('YYYY-MM-DD hh:mm:ss');
+class BaseEntity {
   @PrimaryGeneratedColumn('increment')
   public id: number;
 
   @Column({
-    type: 'datetime',
+    type: 'timestamp',
     nullable: false,
-    default: () => 'CURRENT_TIMESTAMP',
+    default: () => `'${currentDateTime}'`,
   })
   created_date: Date;
 
   @Column({
-    type: 'datetime',
+    type: 'timestamp',
     nullable: false,
     default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
   })
   updated_date: Date;
 }
+
+export default BaseEntity
