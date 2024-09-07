@@ -7,6 +7,7 @@ import { UserModule } from '@modules/user/user.module';
 import { DatabaseModule } from '@modules/database/db.module';
 import { ConfigModule } from '@nestjs/config';
 import { EventGateway } from '@modules/socket/event.gateway'
+import { AssemblyService } from '@modules/services/assembly.service';
 
 @Module({
   imports: [
@@ -19,6 +20,6 @@ import { EventGateway } from '@modules/socket/event.gateway'
     DatabaseModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UserService, EventGateway],
+  providers: [AppService, UserService, AssemblyService, EventGateway],
 })
 export class AppModule {}

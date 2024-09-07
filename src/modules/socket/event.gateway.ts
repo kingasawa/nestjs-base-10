@@ -4,10 +4,11 @@ import {
   WebSocketServer,
   OnGatewayInit,
   OnGatewayConnection,
-  OnGatewayDisconnect, MessageBody,
+  OnGatewayDisconnect, MessageBody, ConnectedSocket,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { Logger } from '@nestjs/common';
+import { AssemblyService } from '@modules/services/assembly.service';
 
 @WebSocketGateway({
   cors: {
@@ -17,6 +18,7 @@ import { Logger } from '@nestjs/common';
 export class EventGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger('EventGateway');
+  constructor(private readonly assemblyService: AssemblyService) {}
 
   afterInit(server: Server) {
     this.logger.log('Socket.IO Initialized');
@@ -31,8 +33,15 @@ export class EventGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
   }
 
   @SubscribeMessage('uploadFile')
-  async handleUploadAudio(@MessageBody() blob: Buffer, @MessageBody('socket') socket: Socket): Promise<void> {
-    console.log('socket', socket);
-    // await this.assemblyService.handleAssembly(socket, blob);
+  // async handleUploadAudio(@MessageBody() blob: Buffer, client: Socket): Promise<void> {
+  //   console.log('Client object:', client); // In ra đối tượng client để kiểm tra
+  //   await this.assemblyService.handleAssembly(client, blob);
+  // }
+  async handleUploadAudio(
+    @MessageBody() data: any,
+    @ConnectedSocket() client: Socket,
+  ): Promise<void> {
+    const { blob } = data;
+    await this.assemblyService.handleAssembly(client, blob);
   }
 }
