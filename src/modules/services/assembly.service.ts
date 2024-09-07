@@ -77,6 +77,13 @@ export class AssemblyService {
 
       console.log('Response from OpenAI:', response.data.choices);
       socket.emit('bot_chat', response.data.choices[0].message.content);
+      fs.unlink(filePath, (unlinkErr) => {
+        if (unlinkErr) {
+          console.error('Error deleting file:', unlinkErr);
+        } else {
+          console.log('File deleted successfully');
+        }
+      });
     } catch (error) {
       console.error('Error in AssemblyService:', error);
       socket.emit('error', 'Error processing audio or chat response');
