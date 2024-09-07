@@ -21,7 +21,7 @@ export class AssemblyService {
     try {
       const fileBuffer = Buffer.from(new Uint8Array(blob));
       const fileName = `${Date.now()}.m4a`;
-      const uploadDir = join(__dirname, '../../public/uploads');
+      const uploadDir = join(process.cwd(), 'public/uploads');
       const filePath = join(uploadDir, fileName);
 
       if (!fs.existsSync(uploadDir)) {

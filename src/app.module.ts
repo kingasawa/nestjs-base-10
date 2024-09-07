@@ -14,7 +14,8 @@ import { AssemblyService } from '@modules/services/assembly.service';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
+      rootPath: join(process.cwd(), 'public'),
+      serveRoot: '/uploads',
     }),
     ConfigModule.forRoot({
       isGlobal: true,
