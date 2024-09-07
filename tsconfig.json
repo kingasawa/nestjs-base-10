@@ -10,6 +10,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "types": ["node"],
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
@@ -21,8 +22,11 @@
       "@modules/*": ["src/modules/*"],
       "@core/*": ["src/core/*"],
       "@config/*": ["src/config/*"],
-      // Thêm các đường dẫn khác nếu cần
+      "@shared/*": ["src/shared/*"],
     },
+    "include": [
+      "src/**/*.ts"
+    ],
     "exclude": [
       "node_modules",
       "src/typings-custom/main.d.ts"
