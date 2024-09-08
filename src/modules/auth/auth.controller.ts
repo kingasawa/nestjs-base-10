@@ -12,10 +12,14 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { LoginFailedExceptionFilter } from '@core/filters/login-failed-exception.filter';
 import { LocalAuthGuard } from '@core/guards/local-auth.guard';
+import { UserService } from '@modules/user/user.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
 
   @UseGuards(LocalAuthGuard)
   @UseFilters(LoginFailedExceptionFilter)
@@ -33,8 +37,18 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
+  async getProfile(@Request() req) {
+    const user = await this.userService.fetchUser(req.user.email);
+    return user;
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('update')
+  async updateInfo(@Request() req) {
+    console.log('req.user', req.user);
+    console.log('req.body', req.body);
+    const user = await this.userService.selfUpdate(req.body);
+    return user;
   }
 
   @Get('test')

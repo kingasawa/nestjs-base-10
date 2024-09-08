@@ -69,4 +69,13 @@ export class UserService {
     await this.userRepository.save(userEntity);
     return userEntity;
   }
+
+  public async selfUpdate(payload: any): Promise<UserEntity> {
+    console.log('payload', payload);
+    const user: UserEntity = await this.userRepository.findOne({ where: { email: payload.email } });
+    Object.assign(user, payload);
+    const updateUser = await this.userRepository.save(user);
+    console.log('result', updateUser);
+    return updateUser;
+  }
 }
