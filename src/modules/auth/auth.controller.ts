@@ -47,8 +47,18 @@ export class AuthController {
   async updateInfo(@Request() req) {
     console.log('req.user', req.user);
     console.log('req.body', req.body);
-    const user = await this.userService.selfUpdate(req.body);
-    return user;
+    return await this.userService.selfUpdate(req.body);
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('notification')
+  async updateNotification(@Request() req) {
+    const { pushToken, notification } = req.body;
+    const payload = {
+      pushToken, notification,
+      email: req.user.email
+    }
+    return await this.userService.notificationUpdate(payload);
   }
 
   @Get('test')

@@ -24,6 +24,12 @@ class UserEntity extends BaseEntity {
   @Column({ default: 6000 })
   secondToUse: number;
 
+  @Column({ nullable: true })
+  pushToken: string;
+
+  @Column({ default: true })
+  notification: boolean;
+
   @Column({ default: false })
   memberShip: boolean;
 
