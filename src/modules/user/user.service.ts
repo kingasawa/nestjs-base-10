@@ -71,11 +71,14 @@ export class UserService {
   }
 
   public async selfUpdate(payload: any): Promise<UserEntity> {
-    console.log('payload', payload);
     const user: UserEntity = await this.userRepository.findOne({ where: { email: payload.email } });
     Object.assign(user, payload);
-    const updateUser = await this.userRepository.save(user);
-    console.log('result', updateUser);
-    return updateUser;
+    return await this.userRepository.save(user);
+  }
+
+  public async notificationUpdate(payload: any): Promise<UserEntity> {
+    const user: UserEntity = await this.userRepository.findOne({ where: { email: payload.email } });
+    Object.assign(user, payload);
+    return await this.userRepository.save(user);
   }
 }
