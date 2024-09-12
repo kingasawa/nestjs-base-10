@@ -17,7 +17,6 @@ export class UserService {
   }
 
   async fetchUser(email: string): Promise<UserEntity> {
-    console.log('email', email);
     return this.userRepository.findOne({
       where: {
         email,

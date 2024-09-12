@@ -12,8 +12,9 @@ export class AuthService {
   ) {}
 
   async validateUser(payload: any): Promise<any> {
-    const { email, password } = payload;
-    const userEntity: UserEntity = await this.userService.fetchUser(email);
+    const { username, password } = payload;
+    console.log('validateUser payload', payload);
+    const userEntity: UserEntity = await this.userService.fetchUser(username);
     if (!userEntity) {
       return null;
     }
