@@ -10,6 +10,7 @@ import { DatabaseModule } from '@modules/database/db.module';
 import { ConfigModule } from '@nestjs/config';
 import { EventGateway } from '@modules/socket/event.gateway'
 import { AssemblyService } from '@modules/services/assembly.service';
+import { MailModule } from '@modules/mailer/mail.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { AssemblyService } from '@modules/services/assembly.service';
     AuthModule,
     UserModule,
     DatabaseModule,
+    MailModule
   ],
   controllers: [AppController],
   providers: [AppService, UserService, AssemblyService, EventGateway],

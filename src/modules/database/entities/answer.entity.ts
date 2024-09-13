@@ -13,6 +13,9 @@ class AnswerEntity extends BaseEntity {
   @ManyToOne(() => QuestionEntity, (question) => question.answers)
   @JoinColumn({ name: 'question_id' })
   question: QuestionEntity;
+
+  @Column({ nullable: false, default: false})
+  certificated: boolean;
 }
 
 export default AnswerEntity;

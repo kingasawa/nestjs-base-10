@@ -1,8 +1,15 @@
 import {
   Entity,
-  Column,
+  Column, OneToMany,
 } from 'typeorm';
 import BaseEntity from './base.entity';
+import TestEntity from '@modules/database/entities/test.entity';
+
+export enum UserGender {
+  MALE = "Male",
+  FEMALE = "Female",
+  UNKNOWN = "Unknown",
+}
 
 @Entity({ name: 'users' })
 class UserEntity extends BaseEntity {
@@ -15,7 +22,7 @@ class UserEntity extends BaseEntity {
   @Column()
   password: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'enum', enum: UserGender, default: UserGender.MALE })
   gender: string;
 
   @Column({ nullable: true })
@@ -35,6 +42,9 @@ class UserEntity extends BaseEntity {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @OneToMany(() => TestEntity, (test) => test.user)
+  tests: TestEntity[];
 }
 
 export default UserEntity;

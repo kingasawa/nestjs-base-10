@@ -5,9 +5,15 @@ import {
 import BaseEntity from './base.entity';
 import AnswerEntity from './answer.entity';
 
+export enum QuestionType {
+  EASY = "easy",
+  MEDIUM = "medium",
+  HARD = "hard",
+}
+
 @Entity({ name: 'questions' })
 class QuestionEntity extends BaseEntity {
-  @Column()
+  @Column({ type: 'enum', enum: QuestionType, default: QuestionType.EASY })
   type: string;
 
   @Column({ nullable: false })

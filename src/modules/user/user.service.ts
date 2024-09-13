@@ -4,12 +4,14 @@ import { Repository } from 'typeorm';
 import UserEntity from '@modules/database/entities/user.entity';
 import { encrypt } from '@shared/common/helper';
 import { ERROR_MESSAGES } from '@shared/common/constants';
+import { MailService } from '@modules/mailer/mail.service';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
+    private mailService: MailService,
   ) {}
 
   async findAll(): Promise<UserEntity[]> {
@@ -79,5 +81,15 @@ export class UserService {
     const user: UserEntity = await this.userRepository.findOne({ where: { email: payload.email } });
     Object.assign(user, payload);
     return await this.userRepository.save(user);
+  }
+
+  public async resetPassword(payload: any): Promise<UserEntity> {
+    const { email } = payload;
+    const userEntity: UserEntity = await this.userRepository.findOne({ where: { email } });
+    if (!userEntity) {
+      throw new NotFoundException({ message: ERROR_MESSAGES.USER_NOT_FOUND });
+    }
+    this.mailService.sendNewPassword('Khánh Trần', 'trancatkhanh@gmail.com')
+    return userEntity;
   }
 }

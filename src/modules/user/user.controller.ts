@@ -2,7 +2,7 @@ import {
   Controller,
   Response,
   Post,
-  Request, Delete, UseGuards, Param, Put, Body, UseInterceptors, UploadedFile, BadRequestException,
+  Request, Delete, UseGuards, Param, Put, Body, UseInterceptors, UploadedFile, BadRequestException, Get,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -59,6 +59,16 @@ export class UserController {
     }
   }
 
+  @Post('/reset-password')
+  async resetPassword(@Request() req, @Response() res) {
+    try {
+      const reset = await this.userService.resetPassword(req.body);
+      return res.status(200).send(reset)
+    } catch (error) {
+      return res.send(error)
+    }
+  }
+
   @Delete('/delete/:id')
   @UseGuards(AuthGuard)
   async delete(@Param('id') id: number, @Response() res): Promise<UserEntity> {
@@ -69,6 +79,13 @@ export class UserController {
   @Put('/:id')
   @UseGuards(AuthGuard)
   async editUser(@Body() updateUserDto: any, @Response() res): Promise<any> {
+    const updated = await this.userService.updateUserDetail(updateUserDto);
+    return res.json({ updated });
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('/doTest')
+  async doTest(@Body() updateUserDto: any, @Response() res): Promise<any> {
     const updated = await this.userService.updateUserDetail(updateUserDto);
     return res.json({ updated });
   }
