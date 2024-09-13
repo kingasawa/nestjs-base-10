@@ -32,16 +32,16 @@ export class MailService {
 
   public sendNewPassword(
     name: string,
-    mailTo: string
+    mailTo: string,
+    password
   ): any {
-    const randomPassword = (Math.random() + 1).toString(36).substring(2);
     this._sendMail({
       subject: `${name}, Mật khẩu của bạn đã được cấp mới`,
       email: mailTo,
       template: './reset_password',
       context: {
         name,
-        password: randomPassword,
+        password,
       },
     });
   }

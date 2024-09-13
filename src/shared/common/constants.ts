@@ -11,7 +11,7 @@ export const ERROR_MESSAGES = {
   DATA_NOT_FOUND: "Data you want to find can't be found. Please try again",
   QUESTION_IS_EMPTY: 'Question must not be empty',
   USER_NOT_FOUND: 'This user is not existed, please try again',
-  EMAIL_NOT_FOUND: 'This email is not existed, please try again',
+  EMAIL_NOT_FOUND: 'Email này không tồn tại trong hệ thống.',
   QUESTION_NOT_FOUND: "Question can't be found",
   INVALID_ANSWER_MARK: 'The total mark of answers must the equal to the mark of the question',
   INVALID_DATE_TIME: 'Date time format is invalid. Please try again',

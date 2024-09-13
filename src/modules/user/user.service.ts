@@ -5,6 +5,7 @@ import UserEntity from '@modules/database/entities/user.entity';
 import { encrypt } from '@shared/common/helper';
 import { ERROR_MESSAGES } from '@shared/common/constants';
 import { MailService } from '@modules/mailer/mail.service';
+import userEntity from '@modules/database/entities/user.entity';
 
 @Injectable()
 export class UserService {
@@ -27,20 +28,16 @@ export class UserService {
   }
 
   public async register(payload: UserEntity): Promise<any> {
-    console.log('payload', payload);
     const checkExisting = await this.fetchUser(payload.email);
     if (checkExisting) {
       return {
         error: true,
         user: {},
-        message: 'Data existed',
+        message: 'Email này đã được đăng ký',
       };
     }
-    console.log('checkExisting', checkExisting);
     payload.password = encrypt(payload.password);
-    console.log('payload', payload);
     const UserEntity: UserEntity = this.userRepository.create(payload);
-    console.log('UserEntity', UserEntity);
     await this.userRepository.save(UserEntity)
     delete UserEntity.password;
     return {
@@ -83,13 +80,26 @@ export class UserService {
     return await this.userRepository.save(user);
   }
 
-  public async resetPassword(payload: any): Promise<UserEntity> {
+  public async resetPassword(payload: any): Promise<any> {
     const { email } = payload;
     const userEntity: UserEntity = await this.userRepository.findOne({ where: { email } });
     if (!userEntity) {
-      throw new NotFoundException({ message: ERROR_MESSAGES.USER_NOT_FOUND });
+      return {
+        error: true,
+        user: UserEntity,
+        message: ERROR_MESSAGES.EMAIL_NOT_FOUND,
+      };
     }
-    this.mailService.sendNewPassword('Khánh Trần', 'trancatkhanh@gmail.com')
-    return userEntity;
+    const randomPassword = (Math.random() + 1).toString(36).substring(2);
+    const updateData: userEntity = {
+      ...userEntity,
+      password: encrypt(randomPassword)
+    }
+    await this.userRepository.save(updateData);
+    this.mailService.sendNewPassword(userEntity.fullName, email, randomPassword)
+    return {
+      error: false,
+      message: 'Success',
+    };
   }
 }
