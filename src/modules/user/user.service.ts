@@ -6,6 +6,8 @@ import { encrypt } from '@shared/common/helper';
 import { ERROR_MESSAGES } from '@shared/common/constants';
 import { MailService } from '@modules/mailer/mail.service';
 import userEntity from '@modules/database/entities/user.entity';
+import axios from 'axios';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UserService {
@@ -13,6 +15,7 @@ export class UserService {
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
     private mailService: MailService,
+    private configService: ConfigService
   ) {}
 
   async findAll(): Promise<UserEntity[]> {
@@ -101,5 +104,30 @@ export class UserService {
       error: false,
       message: 'Success',
     };
+  }
+
+  public async talkToBot(payload: any): Promise<any> {
+    console.log('payload', payload);
+    const context = 'You are an English teacher, please talk to me so I can practice my listening and speaking skills in English. Also, Please reply concisely, no more than 10 words per sentence and correct me if I make any mistakes.';
+    const { message } = payload;
+    const API_KEY = this.configService.get('OPENAI_API_KEY');
+
+    const response = await axios.post(
+      'https://api.openai.com/v1/chat/completions',
+      {
+        model: 'gpt-4o-mini-2024-07-18',
+        messages: [
+          { role: 'system', content: context },
+          { role: 'user', content: message },
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    return response.data.choices[0].message.content;
   }
 }

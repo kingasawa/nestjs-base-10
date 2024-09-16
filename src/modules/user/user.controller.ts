@@ -90,4 +90,11 @@ export class UserController {
     const updated = await this.userService.updateUserDetail(updateUserDto);
     return res.json({ updated });
   }
+
+  // @UseGuards(AuthGuard)
+  @Post('/talk')
+  async talkToBot(@Request() req, @Response() res): Promise<any> {
+    const message = await this.userService.talkToBot(req.body);
+    return res.json({ message });
+  }
 }
