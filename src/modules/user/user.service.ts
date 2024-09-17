@@ -108,8 +108,9 @@ export class UserService {
 
   public async talkToBot(payload: any): Promise<any> {
     console.log('payload', payload);
-    const context = 'You are an English teacher, please talk to me so I can practice my listening and speaking skills in English. Also, Please reply concisely, no more than 10 words per sentence and correct me if I make any mistakes.';
-    const { message } = payload;
+    const talkContext = 'You are an English teacher, please talk to me so I can practice my listening and speaking skills in English. Also, Please reply concisely, no more than 10 words per sentence and correct me if I make any mistakes.';
+    const { message, context } = payload;
+    console.log('context', context);
     const API_KEY = this.configService.get('OPENAI_API_KEY');
 
     const response = await axios.post(
@@ -117,7 +118,7 @@ export class UserService {
       {
         model: 'gpt-4o-mini-2024-07-18',
         messages: [
-          { role: 'system', content: context },
+          { role: 'system', content: talkContext },
           { role: 'user', content: message },
         ],
       },
