@@ -124,6 +124,7 @@ export class UserService {
         },
       },
     );
+    console.log('response.data.choices[0]', response.data.choices[0]);
     return response.data.choices[0].message.content;
   }
 }
