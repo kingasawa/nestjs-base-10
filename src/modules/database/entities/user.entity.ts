@@ -6,9 +6,9 @@ import BaseEntity from './base.entity';
 import TestEntity from '@modules/database/entities/test.entity';
 
 export enum UserGender {
-  MALE = "Male",
-  FEMALE = "Female",
-  UNKNOWN = "Unknown",
+  MALE = "Nam",
+  FEMALE = "Nữ",
+  UNKNOWN = "Không rõ",
 }
 
 @Entity({ name: 'users' })
