@@ -26,7 +26,7 @@ export class AuthController {
   @Post('/login')
   async login(@Request() req, @Response() res) {
     try {
-      console.log('Step 4: UserController req.user', req.user);
+      console.log('Step 4: TicketController req.user', req.user);
       const loginData = await this.authService.login(req.user);
       console.log('Step 6 get Login data', loginData);
       return res.status(200).send(loginData)

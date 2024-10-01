@@ -11,6 +11,7 @@ import { ConfigModule } from '@nestjs/config';
 import { EventGateway } from '@modules/socket/event.gateway'
 import { AssemblyService } from '@modules/services/assembly.service';
 import { MailModule } from '@modules/mailer/mail.module';
+import { TicketModule } from '@modules/ticket/ticket.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { MailModule } from '@modules/mailer/mail.module';
     }),
     AuthModule,
     UserModule,
+    TicketModule,
     DatabaseModule,
     MailModule
   ],

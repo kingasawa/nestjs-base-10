@@ -3,7 +3,6 @@ import {
   Column, OneToMany,
 } from 'typeorm';
 import BaseEntity from './base.entity';
-import TestEntity from '@modules/database/entities/test.entity';
 
 export enum UserGender {
   UNKNOWN = "Không rõ",
@@ -42,9 +41,6 @@ class UserEntity extends BaseEntity {
 
   @Column({ default: true })
   isActive: boolean;
-
-  @OneToMany(() => TestEntity, (test) => test.user)
-  tests: TestEntity[];
 }
 
 export default UserEntity;
