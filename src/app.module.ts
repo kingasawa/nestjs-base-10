@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { AuthModule } from '@modules/auth/auth.module';
 import { UserService } from '@modules/user/user.service';
 import { UserModule } from '@modules/user/user.module';
+import { DatabaseModule } from '@modules/database/db.module';
 import { ConfigModule } from '@nestjs/config';
 import { EventGateway } from '@modules/socket/event.gateway'
 import { AssemblyService } from '@modules/services/assembly.service';
@@ -24,6 +25,7 @@ import { TicketModule } from '@modules/ticket/ticket.module';
     AuthModule,
     UserModule,
     TicketModule,
+    DatabaseModule,
     MailModule
   ],
   controllers: [AppController],
