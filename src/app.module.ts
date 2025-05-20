@@ -3,14 +3,11 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from '@modules/auth/auth.module';
 import { UserService } from '@modules/user/user.service';
 import { UserModule } from '@modules/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { EventGateway } from '@modules/socket/event.gateway'
 import { AssemblyService } from '@modules/services/assembly.service';
-import { MailModule } from '@modules/mailer/mail.module';
-import { TicketModule } from '@modules/ticket/ticket.module';
 
 @Module({
   imports: [
@@ -21,10 +18,7 @@ import { TicketModule } from '@modules/ticket/ticket.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
-    AuthModule,
     UserModule,
-    TicketModule,
-    MailModule
   ],
   controllers: [AppController],
   providers: [AppService, UserService, AssemblyService, EventGateway],
