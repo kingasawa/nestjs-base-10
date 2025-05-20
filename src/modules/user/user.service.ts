@@ -34,12 +34,7 @@ export class UserService {
     const { conversation } = payload;
 
     try {
-      const response = await axios.post(
-        '/chat/completions',
-        {
-          model: 'gpt-4-turbo',
-          messages: conversation,
-        },
+      const response = await api.post('/chat/completions', { model: 'gpt-4-turbo', messages: conversation },
       );
       console.log('response.data.choices[0]', response.data.choices[0]);
       return response.data.choices[0].message.content;
