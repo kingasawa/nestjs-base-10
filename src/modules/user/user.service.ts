@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import axios, { AxiosRequestConfig } from 'axios';
 import { ConfigService } from '@nestjs/config';
-const API_KEY = this.configService.get('OPENAI_API_KEY');
+
 const axiosConfig: AxiosRequestConfig = {
   baseURL: "https://api.openai.com/v1",
   timeout: 30000,
@@ -9,17 +9,7 @@ const axiosConfig: AxiosRequestConfig = {
     'Content-Type': 'application/json',
   },
 }
-console.log('API_KEY', API_KEY);
 const api = axios.create(axiosConfig);
-api.interceptors.request.use(
-  async (config) => {
-    config.headers.Authorization = `Bearer ${API_KEY}`;
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
 
 @Injectable()
 export class UserService {
@@ -28,6 +18,18 @@ export class UserService {
   ) {}
 
   public async talkToBot(payload: any): Promise<any> {
+    const API_KEY = this.configService.get('OPENAI_API_KEY');
+    console.log('API_KEY', API_KEY);
+    api.interceptors.request.use(
+      async (config) => {
+        config.headers.Authorization = `Bearer ${API_KEY}`;
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+
     console.log('payload', payload);
     const { conversation } = payload;
 
