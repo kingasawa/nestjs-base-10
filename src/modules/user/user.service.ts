@@ -13,20 +13,24 @@ export class UserService {
     const { conversation } = payload;
     const API_KEY = this.configService.get('OPENAI_API_KEY');
 
-    const response = await axios.post(
-      'https://api.openai.com/v1/chat/completions',
-      {
-        model: 'gpt-4-turbo',
-        messages: conversation,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${API_KEY}`,
-          'Content-Type': 'application/json',
+    try {
+      const response = await axios.post(
+        'https://api.openai.com/v1/chat/completions',
+        {
+          model: 'gpt-4-turbo',
+          messages: conversation,
         },
-      },
-    );
-    console.log('response.data.choices[0]', response.data.choices[0]);
-    return response.data.choices[0].message.content;
+        {
+          headers: {
+            Authorization: `Bearer ${API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      console.log('response.data.choices[0]', response.data.choices[0]);
+      return response.data.choices[0].message.content;
+    } catch (error) {
+      console.log('error', error);
+    }
   }
 }
