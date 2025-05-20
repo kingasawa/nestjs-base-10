@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { ConfigService } from '@nestjs/config';
 
 const axiosConfig: AxiosRequestConfig = {
-  baseURL: "https://api.openai.com/v1",
+  baseURL: "https://api.groq.com/openai/v1",
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export class UserService {
     const { conversation } = payload;
 
     try {
-      const response = await api.post('/chat/completions', { model: 'gpt-4-turbo', messages: conversation },
+      const response = await api.post('/chat/completions', { model: 'meta-llama/llama-4-scout-17b-16e-instruct', messages: conversation },
       );
       console.log('response.data.choices[0]', response.data.choices[0]);
       return response.data.choices[0].message.content;
